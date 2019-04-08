@@ -41,4 +41,21 @@ $(document).ready(function(){
         $('.event-container.'+ eventID).hide();
 
     });
+
+    //canceling editing
+    $('.cancel-edit-event-button').click(function(event){
+        event.preventDefault();
+        var eventID = $(event.target).parent().find('input[type="hidden"]').val();
+        $('.edit-event-container.'+ eventID).hide();
+        $('.event-container.'+ eventID).show();
+        var name = $('.event-container.'+ eventID +' .input-name').val();
+        var description = $('.event-container.'+ eventID +' .input-description').val();
+        var isDone = $('.event-container.' + eventID + ' .input-is-done').prop('checked');
+        
+        $('.edit-event-container.'+ eventID +' .input-name').val(name);
+        $('.edit-event-container.'+ eventID +' .input-description').val(description);
+        $('.edit-event-container.' + eventID + ' .input-is-done').prop('checked', isDone);
+
+
+    });
 });

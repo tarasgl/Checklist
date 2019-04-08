@@ -50,6 +50,7 @@
             <p> Event description</p><input class="input-description" type = 'text' value='<c:out value = "${event.description}"/>'>
             <input class="input-is-done" type='checkbox' value='is done' <c:if test = "${event.isDone}">checked</c:if>>Is done<br>
             <button class='edit-event-button <c:out value = "${event.id}"/>'> edit</button>
+            <button class="cancel-edit-event-button <c:out value = "${event.id}"/>" >Cancel</button>
         </div>
 
 
