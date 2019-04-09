@@ -32,7 +32,7 @@
     <ul class="navbar-nav">
         <li class="navbar-brand">Checklist</li>
         <li class="nav-item">
-            <a class="nav-link" href="#"> Logout</a>
+            <a class="nav-link" href="<c:url value="/logout" />"> Logout</a>
         </li>
     </ul>
 </nav>
@@ -101,9 +101,7 @@
 
     </c:forEach>
 </div>
-<form method="post" action="logout">
-    <input type="submit" value="logout" />
-</form>
+
 </body>
 
 </html>
