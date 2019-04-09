@@ -21,20 +21,6 @@ $(document).ready(function(){
                 }
             }
         })
-        /*
-        $.post('addEvent/',
-            {
-                name: $('newEventName').val(),
-                description: $('newEventDescription').val()
-            },
-            function (responseText) {
-                if(responseText.valueOf() == "succeess"){
-                    alert("object added!")
-                }
-                if(responseText.valueOf() == "error"){
-                    alert("object is not added!")
-                }
-            }
-        )*/
+
     })
 });

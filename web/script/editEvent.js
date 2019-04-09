@@ -5,10 +5,11 @@ $(document).ready(function(){
     $('.edit-event-button').click(function(event){
         event.preventDefault();
 
-        var eventID = $(event.target).parent().find('input[type="hidden"]').val();
-        var name = $('.edit-event-container.'+ eventID +' .input-name').val();
-        var description = $('.edit-event-container.'+ eventID +' .input-description').val();
-        var isDone = $('.edit-event-container.' + eventID + ' .input-is-done').prop('checked');
+        var eventId = $(event.target).parent().parent().find('input[type="hidden"]').val();
+        var eventIdClass = "." + eventId;
+        var name = $( eventIdClass +'.input-name').val();
+        var description = $( eventIdClass +'.input-description').val();
+        var isDone = $( eventIdClass + '.input-is-done').prop('checked');
         var buttonNewText = (!isDone)? "Mark as done":"Mark as undone" ;
 
         $.ajax({
@@ -18,16 +19,16 @@ $(document).ready(function(){
                 name: name,
                 description: description,
                 isDone: isDone,
-                eventID:eventID
+                eventID:eventId
             },
             success: function (response) {
                 if(response === "success"){
-                    $('.event-container.'+eventID + ' .event-name').text(name);
-                    $('.event-container.'+eventID + ' .event-description').text(description);
-                    $('.event-container.'+eventID + ' .is-done').text(isDone);
-                    $('.event-container.'+eventID + ' .change-is-done').text(buttonNewText)
-                    $('.edit-event-container.'+ eventID).hide();
-                    $('.event-container.'+ eventID).show();
+                    $(eventIdClass + '.event-name').text(name);
+                    $(eventIdClass + '.event-description').text(description);
+                    $(eventIdClass + '.is-done').text(isDone);
+                    $(eventIdClass + '.change-is-done').text(buttonNewText)
+                    $('.edit-event-container'+ eventIdClass).hide();
+                    $('.event-container'+ eventIdClass).show();
                 }
             }
         });
@@ -36,7 +37,7 @@ $(document).ready(function(){
     //making sertain edit form to appear
     $('.open-edit-event').click(function(event){
         event.preventDefault();
-        var eventID = $(event.target).parent().find('input[type="hidden"]').val();
+        var eventID = $(event.target).parent().parent().find('input[type="hidden"]').val();
         $('.edit-event-container.'+ eventID).show();
         $('.event-container.'+ eventID).hide();
 
@@ -45,16 +46,17 @@ $(document).ready(function(){
     //canceling editing
     $('.cancel-edit-event-button').click(function(event){
         event.preventDefault();
-        var eventID = $(event.target).parent().find('input[type="hidden"]').val();
-        $('.edit-event-container.'+ eventID).hide();
-        $('.event-container.'+ eventID).show();
-        var name = $('.event-container.'+ eventID +' .input-name').val();
-        var description = $('.event-container.'+ eventID +' .input-description').val();
-        var isDone = $('.event-container.' + eventID + ' .input-is-done').prop('checked');
-        
-        $('.edit-event-container.'+ eventID +' .input-name').val(name);
-        $('.edit-event-container.'+ eventID +' .input-description').val(description);
-        $('.edit-event-container.' + eventID + ' .input-is-done').prop('checked', isDone);
+        var eventId = $(event.target).parent().parent().find('input[type="hidden"]').val();
+        var eventIdClass ="." + eventId;
+        $('.edit-event-container.'+ eventId).hide();
+        $('.event-container.'+ eventId).show();
+        var name = $(eventIdClass +'.input-name').val();
+        var description = $(eventIdClass +'.input-description').val();
+        var isDone = $(eventIdClass + '.input-is-done').prop('checked');
+
+        $(eventIdClass +'.input-name').val(name);
+        $(eventIdClass +'.input-description').val(description);
+        $(eventIdClass + '.input-is-done').prop('checked', isDone);
 
 
     });

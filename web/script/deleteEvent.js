@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('.delete-event').click(function (event) {
         event.preventDefault();
-        var eventID = $(event.target).parent().find('input[type="hidden"]').val();
+        var eventID = $(event.target).parent().parent().find('input[type="hidden"]').val();
 
         $.ajax({
             url:"deleteEvent",
