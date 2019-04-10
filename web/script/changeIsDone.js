@@ -1,4 +1,6 @@
-$(document).ready(function(){
+$(document).ready(changeIsDone);
+
+function changeIsDone() {
     $('.change-is-done').click(function(event){
         event.preventDefault();
 
@@ -30,4 +32,4 @@ $(document).ready(function(){
         });
 
     });
-});
+}

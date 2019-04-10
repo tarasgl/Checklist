@@ -1,7 +1,7 @@
-$(document).ready(function(){
-   $('.edit-event-container').hide();//hiding all edit forms
+$(document).ready(editEvent);
 
-
+function editEvent() {
+    $('.edit-event-container').hide();//hiding all edit forms
     $('.edit-event-button').click(function(event){
         event.preventDefault();
 
@@ -60,4 +60,4 @@ $(document).ready(function(){
 
 
     });
-});
+}

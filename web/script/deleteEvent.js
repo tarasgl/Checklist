@@ -1,4 +1,7 @@
-$(document).ready(function () {
+$(document).ready(deleteEvent);
+
+
+function deleteEvent() {
     $('.delete-event').click(function (event) {
         event.preventDefault();
         var eventID = $(event.target).parent().parent().find('input[type="hidden"]').val();
@@ -15,5 +18,7 @@ $(document).ready(function () {
                 }
             }
         });
-    })
-})
+    });
+}
+
+

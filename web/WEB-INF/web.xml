@@ -34,6 +34,10 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.checklisttarasgl.servlets.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetEventsServlet</servlet-name>
+        <servlet-class>com.checklisttarasgl.servlets.GetEventsServlet</servlet-class>
+    </servlet>
 
 
 
@@ -66,6 +70,10 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetEventsServlet</servlet-name>
+        <url-pattern>/getEvents</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>AudentificationFilter</filter-name>
@@ -78,5 +86,6 @@
         <url-pattern>/addEvent</url-pattern>
         <url-pattern>/editEvent</url-pattern>
         <url-pattern>/deleteEvent</url-pattern>
+        <url-pattern>/getEvents</url-pattern>
     </filter-mapping>
 </web-app>

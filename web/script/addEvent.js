@@ -1,4 +1,6 @@
-$(document).ready(function(){
+$(document).ready(addEvent);
+
+function addEvent() {
 
     $("#submitButton").click(function(event) {
         event.preventDefault();
@@ -14,13 +16,33 @@ $(document).ready(function(){
             },
             success: function (responseText) {
                 if(responseText.valueOf() === "success"){
-                    alert("object added!")
+                    
+                    $.ajax({
+                        url: "getEvents",
+                        type:"GET",
+                        data:{
+
+                        },
+                        success: function (responseText) {
+
+                            console.log(responseText);
+                            $('.all-events-container').html(responseText);
+                            reloadButtonEvents();
+                        }
+                    })
                 }
                 if(responseText.valueOf() === "error"){
                     alert("object is not added!")
                 }
             }
-        })
+        });
 
-    })
-});
+    });
+}
+
+function reloadButtonEvents(){
+    deleteEvent();
+    addEvent();
+    editEvent();
+    changeIsDone();
+}
