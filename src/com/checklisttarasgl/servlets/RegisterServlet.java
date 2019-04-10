@@ -22,14 +22,13 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm-password");
 
-        if(username.isEmpty()||password.isEmpty()||confirmPassword.isEmpty()||
-                !confirmPassword.equals(password)){
+        if(username.isEmpty()||password.isEmpty()||confirmPassword.isEmpty()){
             request.setAttribute("fieldIsEmpty", true);
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/register.jsp");
             rd.include(request, response);
         } else{
             if(!confirmPassword.equals(password)){
-                request.setAttribute("passwordIsConfirmed", false);
+                request.setAttribute("passwordIsNotConfirmed", true);
                 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/register.jsp");
                 rd.include(request, response);
             } else {

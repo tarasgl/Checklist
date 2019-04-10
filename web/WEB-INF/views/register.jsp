@@ -16,7 +16,7 @@
         <ul class="navbar-nav">
             <li class="navbar-brand">Checklist</li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Register</a>
+                <a class="nav-link" href="<c:url value="/login"/>"> Login</a>
             </li>
         </ul>
     </nav>
@@ -25,11 +25,12 @@
     <div class = "col-lg-4 col-md-3 col-sm-2"></div>
     <div class ="col-lg-4 col-md-6 col-sm-8">
         <h2>Register</h2>
+
         <form method = "post" >
-            <c:if test = "${fieldIsEmpty != null && fieldIsEmpty}">
+            <c:if test = "${fieldIsEmpty}">
                 Fill all Fields
             </c:if>
-            <c:if test = "${userAlreadyExsists != null && userAlreadyExists}">
+            <c:if test = "${userAlreadyExists}">
                 Username is taken
             </c:if>
             Username:<br>
@@ -37,7 +38,7 @@
             Password:<br>
             <input type="password" name="password" value=""><br><br>
 
-            <c:if test = "${passwordIsConfirmed != null && !(passwordIsConfirmed)}">
+            <c:if test = "${passwordIsNotConfirmed}">
                 Password is not confirmed
             </c:if>
             Confirm password:<br>
