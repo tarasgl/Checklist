@@ -16,7 +16,7 @@ function addEvent() {
             },
             success: function (responseText) {
                 if(responseText.valueOf() === "success"){
-                    
+
                     $.ajax({
                         url: "getEvents",
                         type:"GET",
@@ -25,7 +25,6 @@ function addEvent() {
                         },
                         success: function (responseText) {
 
-                            console.log(responseText);
                             $('.all-events-container').html(responseText);
                             reloadButtonEvents();
                         }
