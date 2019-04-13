@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -15,7 +14,7 @@
 </head>
 <body>
 
-<c:if test = "${(badLogin!= null && badLogin == true)} ">
+<c:if test="${(badLogin!= null && badLogin == true)} ">
     <p>BadInput</p>
 </c:if>
 
@@ -29,17 +28,17 @@
 </nav>
 
 <div class="row">
-    <div class = "col-lg-4 col-md-3 col-sm-2"></div>
-    <div class ="col-lg-4 col-md-6 col-sm-8">
-        <form method = "post" >
+    <div class="col-lg-4 col-md-3 col-sm-2"></div>
+    <div class="col-lg-4 col-md-6 col-sm-8">
+        <form method="post">
             Username:<br>
             <input type="text" name="username" value=""><br>
             Password:<br>
             <input type="password" name="password" value=""><br><br>
-            <input class ="btn  btn-primary" type="submit" value="Submit">
+            <input class="btn  btn-primary" type="submit" value="Submit">
         </form>
     </div>
-    <div class = "col-lg-4 col-md-3 col-sm-2"></div>
+    <div class="col-lg-4 col-md-3 col-sm-2"></div>
 </div>
 </body>
 </html>

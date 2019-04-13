@@ -7,14 +7,14 @@ function deleteEvent() {
         var eventID = $(event.target).parent().parent().find('input[type="hidden"]').val();
 
         $.ajax({
-            url:"deleteEvent",
-            type:"POST",
-            data:{
-                eventID:eventID
+            url: "deleteEvent",
+            type: "POST",
+            data: {
+                eventID: eventID
             },
             success: function (response) {
-                if(response === "success"){
-                    $('.event-container.'+eventID).remove();
+                if (response === "success") {
+                    $('.event-container.' + eventID).remove();
                 }
             }
         });

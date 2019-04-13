@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -12,25 +11,25 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <nav class="navbar header navbar-expand-sm ">
-        <ul class="navbar-nav">
-            <li class="navbar-brand">Checklist</li>
-            <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/login"/>"> Login</a>
-            </li>
-        </ul>
-    </nav>
+<nav class="navbar header navbar-expand-sm ">
+    <ul class="navbar-nav">
+        <li class="navbar-brand">Checklist</li>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/login"/>"> Login</a>
+        </li>
+    </ul>
+</nav>
 
-    <div class="row">
-    <div class = "col-lg-4 col-md-3 col-sm-2"></div>
-    <div class ="col-lg-4 col-md-6 col-sm-8">
+<div class="row">
+    <div class="col-lg-4 col-md-3 col-sm-2"></div>
+    <div class="col-lg-4 col-md-6 col-sm-8">
         <h2>Register</h2>
 
-        <form method = "post" >
-            <c:if test = "${fieldIsEmpty}">
+        <form method="post">
+            <c:if test="${fieldIsEmpty}">
                 Fill all Fields
             </c:if>
-            <c:if test = "${userAlreadyExists}">
+            <c:if test="${userAlreadyExists}">
                 Username is taken
             </c:if>
             Username:<br>
@@ -38,15 +37,15 @@
             Password:<br>
             <input type="password" name="password" value=""><br><br>
 
-            <c:if test = "${passwordIsNotConfirmed}">
+            <c:if test="${passwordIsNotConfirmed}">
                 Password is not confirmed
             </c:if>
             Confirm password:<br>
             <input type="password" name="confirm-password" value=""><br><br>
-            <input class ="btn  btn-primary" type="submit" value="Register">
+            <input class="btn  btn-primary" type="submit" value="Register">
         </form>
     </div>
-    <div class = "col-lg-4 col-md-3 col-sm-2"></div>
-    </div>
+    <div class="col-lg-4 col-md-3 col-sm-2"></div>
+</div>
 </body>
 </html>

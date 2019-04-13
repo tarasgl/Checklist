@@ -17,17 +17,14 @@ import java.util.ArrayList;
 @WebServlet(name = "HomeServlet")
 public class HomeServlet extends HttpServlet {
 
-    static final String db_username = "userlogin";
-    static final String db_password = "useruser123";
 
-    static final String url = "jdbc:sqlserver://DESKTOP-HNAFTUU\\SQLEXPRESS;databaseName=Checklist";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        int userId = (int)session.getAttribute("userID");
+        int userId = (int) session.getAttribute("userID");
 
         try {
             Connection conn = DBConnection.getConnection();
@@ -38,25 +35,24 @@ public class HomeServlet extends HttpServlet {
                     "JOIN [Checklist].[dbo].Event ON [Checklist].[dbo].[UserEvent].[eventID] = [Checklist].[dbo].[Event].[id]" +
                     " WHERE [Checklist].[dbo].[User].[id] = ?;";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
-            preparedStatement.setInt(1,userId);
+            preparedStatement.setInt(1, userId);
 
             ResultSet res = preparedStatement.executeQuery();
             ArrayList<Event> events = new ArrayList<>();
-            while (res.next()){
+            while (res.next()) {
                 int ev_id = res.getInt("id");
                 String ev_name = res.getString("name");
                 String ev_text = res.getString("text");
                 boolean ev_isDone = res.getBoolean("isDone");
-                System.out.println(ev_name+ ev_text);
-                events.add(new Event(ev_id,ev_name, ev_text, ev_isDone));
+                System.out.println(ev_name + ev_text);
+                events.add(new Event(ev_id, ev_name, ev_text, ev_isDone));
             }
-            request.setAttribute("events",events);
+            request.setAttribute("events", events);
 
             preparedStatement.close();
             conn.close();
 
-        }
-        catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

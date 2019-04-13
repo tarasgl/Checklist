@@ -22,12 +22,12 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm-password");
 
-        if(username.isEmpty()||password.isEmpty()||confirmPassword.isEmpty()){
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             request.setAttribute("fieldIsEmpty", true);
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/register.jsp");
             rd.include(request, response);
-        } else{
-            if(!confirmPassword.equals(password)){
+        } else {
+            if (!confirmPassword.equals(password)) {
                 request.setAttribute("passwordIsNotConfirmed", true);
                 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/register.jsp");
                 rd.include(request, response);
@@ -38,10 +38,10 @@ public class RegisterServlet extends HttpServlet {
                     Connection conn = DBConnection.getConnection();
                     PreparedStatement selectCountPrepStat = conn.prepareStatement(sqlGetCount);
                     selectCountPrepStat.setString(1, username);
-                    ResultSet countResultSet= selectCountPrepStat.executeQuery();
+                    ResultSet countResultSet = selectCountPrepStat.executeQuery();
                     countResultSet.next();
                     int countUsers = countResultSet.getInt("usernameCount");
-                    if(countUsers !=0){
+                    if (countUsers != 0) {
                         //user already exists, redirect to login again
                         request.setAttribute("userAlreadyExists", true);
                         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/register.jsp");
@@ -52,10 +52,10 @@ public class RegisterServlet extends HttpServlet {
                             String sqlRegisterUser = "INSERT INTO [User](username, password) " +
                                     "VALUES (?,?) ";
                             PreparedStatement addUserPrepStat = conn.prepareStatement(sqlRegisterUser);
-                            addUserPrepStat.setString(1,username);
-                            addUserPrepStat.setString(2,password);
+                            addUserPrepStat.setString(1, username);
+                            addUserPrepStat.setString(2, password);
                             int usersAdded = addUserPrepStat.executeUpdate();
-                            if(usersAdded == 1){
+                            if (usersAdded == 1) {
                                 //user is registered. Log him in
                                 String sqlSelectUserId = "SELECT id FROM [User] WHERE username = ?";
                                 PreparedStatement getUserIdPrepStat = conn.prepareStatement(sqlSelectUserId);
@@ -67,20 +67,19 @@ public class RegisterServlet extends HttpServlet {
                                 session.setAttribute("userID", userId);
                                 session.setAttribute("username", username);
                                 //setting session to expiry in 10 mins
-                                session.setMaxInactiveInterval(10*60);
+                                session.setMaxInactiveInterval(10 * 60);
 
                                 response.sendRedirect("home");
-                            }
-                            else {
+                            } else {
                                 //failed to register
                             }
 
-                        } catch (SQLException ex){
+                        } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
                     }
 
-                } catch(SQLException ex){
+                } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -89,6 +88,6 @@ public class RegisterServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/register.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 }

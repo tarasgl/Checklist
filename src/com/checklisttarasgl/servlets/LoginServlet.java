@@ -15,10 +15,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
-    static final String db_username = "userlogin";
-    static final String db_password = "useruser123";
 
-    static final String url = "jdbc:sqlserver://DESKTOP-HNAFTUU\\SQLEXPRESS;databaseName=Checklist";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String usn = request.getParameter("username");
@@ -30,8 +27,8 @@ public class LoginServlet extends HttpServlet {
         String sqlQuery = "SELECT  [id] ,[username] ,[password] FROM [Checklist].[dbo].[User] WHERE [username] = ?;";
 
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery) ;
-            preparedStatement.setString(1,usn);
+            PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, usn);
 
             ResultSet res = preparedStatement.executeQuery();
 
@@ -42,32 +39,30 @@ public class LoginServlet extends HttpServlet {
 
 
             conn.close();
-        } catch (SQLException ex){
-            System.err.println(ex.getMessage()+ex.getSQLState());
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage() + ex.getSQLState());
             response.sendRedirect("/error");
         }
 
 
-
-        if(psw.equals(password)/*&& userId != -1*/){
+        if (psw.equals(password)/*&& userId != -1*/) {
             HttpSession session = request.getSession();
             session.setAttribute("userID", userId);
-            //setting session to expiry in 10 mins
-            session.setMaxInactiveInterval(10*60);
+            //setting session to expiry in 1 mins
+            session.setMaxInactiveInterval(1 * 60);
 
             response.sendRedirect("home");
-        }
-        else{
+        } else {
             request.setAttribute("badLogin", true);
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
 
-            rd.forward(request,response);
+            rd.forward(request, response);
 
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/login.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 }

@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "AudentificationFilter")
-public class AudentificationFilter implements Filter {
+// checks if user is logged in and redirects him to home page if he's already logged in
+@WebFilter(filterName = "LoggedInFilter")
+public class LoggedInFilter implements Filter {
     public void destroy() {
     }
 
@@ -20,14 +21,14 @@ public class AudentificationFilter implements Filter {
 
         HttpSession session = request.getSession(false);
 
-        if(session != null  && session.getAttribute("userID")!=null){
+        //user is already logged in, redirect him to home page
+        if (session != null && session.getAttribute("userID") != null) {
+
+            responce.sendRedirect("home");
+        } else {
 
             chain.doFilter(req, resp);
         }
-        else {
-            responce.sendRedirect("login");
-        }
-
     }
 
     public void init(FilterConfig config) throws ServletException {

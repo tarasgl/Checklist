@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -32,12 +31,12 @@
 </nav>
 
 
-
-<form id = "addEvent">
+<form id="addEvent">
     <input type="text" id="newEventName" value="test">
     <input type="text" id="newEventDescription" value="test">
 
-</form><button  id="submitButton">надіслати</button>
+</form>
+<button id="submitButton">надіслати</button>
 
 <div class="all-events-container" id="all-events-container">
     <jsp:include page="events.jsp"/>

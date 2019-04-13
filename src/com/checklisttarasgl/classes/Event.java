@@ -6,19 +6,18 @@ public class Event {
     private String description;
     private boolean isDone = false;
 
-    public Event(){
+    public Event() {
         id = -1;
-
     }
 
-    public Event(int id, String name, String description){
+    public Event(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public Event(int id, String name, String description, boolean isDone){
-        this(id,name,description);
+    public Event(int id, String name, String description, boolean isDone) {
+        this(id, name, description);
         this.isDone = isDone;
     }
 

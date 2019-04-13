@@ -2,27 +2,25 @@ $(document).ready(addEvent);
 
 function addEvent() {
 
-    $("#submitButton").click(function(event) {
+    $("#submitButton").click(function (event) {
         event.preventDefault();
 
         var name = $("#newEventName").val();
         var description = $("#newEventDescription").val();
         $.ajax({
-            url:"addEvent",
-            type:"POST",
-            data:{
+            url: "addEvent",
+            type: "POST",
+            data: {
                 name: name,
                 description: description
             },
             success: function (responseText) {
-                if(responseText.valueOf() === "success"){
+                if (responseText.valueOf() === "success") {
 
                     $.ajax({
                         url: "getEvents",
-                        type:"GET",
-                        data:{
-
-                        },
+                        type: "GET",
+                        data: {},
                         success: function (responseText) {
 
                             $('.all-events-container').html(responseText);
@@ -30,7 +28,7 @@ function addEvent() {
                         }
                     })
                 }
-                if(responseText.valueOf() === "error"){
+                if (responseText.valueOf() === "error") {
                     alert("object is not added!")
                 }
             }
@@ -39,9 +37,8 @@ function addEvent() {
     });
 }
 
-function reloadButtonEvents(){
+function reloadButtonEvents() {
     deleteEvent();
-    addEvent();
     editEvent();
     changeIsDone();
 }

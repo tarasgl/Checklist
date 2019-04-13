@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "RegistrationPageFilter")
-public class RegistrationPageFilter implements Filter {
+//checks whether user is logged in or not and redirects to login if not
+@WebFilter(filterName = "AuthenticationFilter")
+public class AuthenticationFilter implements Filter {
     public void destroy() {
     }
 
@@ -20,14 +21,13 @@ public class RegistrationPageFilter implements Filter {
 
         HttpSession session = request.getSession(false);
 
-        //user is logged out. Allow registration else forward to home page
-        if(session == null || session.getAttribute("userID") == null){
+        if (session != null && session.getAttribute("userID") != null) {
 
             chain.doFilter(req, resp);
+        } else {
+            responce.sendRedirect("login");
         }
-        else {
-            responce.sendRedirect("home");
-        }
+
     }
 
     public void init(FilterConfig config) throws ServletException {

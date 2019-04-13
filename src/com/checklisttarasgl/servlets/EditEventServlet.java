@@ -17,11 +17,9 @@ public class EditEventServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int eventID = Integer.parseInt(request.getParameter("eventID"));
         boolean isDone = Boolean.parseBoolean(request.getParameter("isDone"));
-        int userID = (int)request.getSession(false).getAttribute("userID");
+        int userID = (int) request.getSession(false).getAttribute("userID");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        System.out.println(name);
-        System.out.println(description);
 
         String sqlQuery = "UPDATE Event " +
                 "SET name = ?, text = ?,  isDone = ? " +
@@ -29,19 +27,18 @@ public class EditEventServlet extends HttpServlet {
                 "ON Event.ID = UserEvent.eventID " +
                 "Where Event.ID = ? AND UserEvent.userID = ?);";
 
-        try{
+        try {
             Connection conn = DBConnection.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
-            preparedStatement.setString(1,name);
+            preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
-            preparedStatement.setBoolean(3,isDone);
+            preparedStatement.setBoolean(3, isDone);
             preparedStatement.setInt(4, eventID);
-            preparedStatement.setInt(5,userID);
+            preparedStatement.setInt(5, userID);
             preparedStatement.executeUpdate();
             preparedStatement.close();
             conn.close();
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             response.setContentType("text/plain");
             response.getWriter().write("error");

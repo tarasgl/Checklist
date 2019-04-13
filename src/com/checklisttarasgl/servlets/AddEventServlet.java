@@ -15,35 +15,38 @@ import java.sql.SQLException;
 @WebServlet(name = "AddEventServlet")
 public class AddEventServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //response.setContentType("");
+        //getting event parameters to add
         String eventName = request.getParameter("name");
         String eventDescription = request.getParameter("description");
-        int userID = (int)request.getSession(false).getAttribute("userID");
-        try
-        {
+        int userID = (int) request.getSession(false).getAttribute("userID");
+
+        int rowsChanged;
+        try {
             Connection conn = DBConnection.getConnection();
             String sqlQuery = " INSERT INTO [Checklist].[dbo].[Event]([Name],[Text],[isDone])" +
                     "VALUES(?,?,0); " +
                     "INSERT INTO [Checklist].[dbo].[UserEvent] ([userID],[eventID]) " +
                     "VALUES(?,Scope_Identity()); ";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
-            preparedStatement.setString(1,eventName);
-            preparedStatement.setString(2,eventDescription);
-            preparedStatement.setInt(3,userID);
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(1, eventName);
+            preparedStatement.setString(2, eventDescription);
+            preparedStatement.setInt(3, userID);
+            rowsChanged = preparedStatement.executeUpdate();
             preparedStatement.close();
             conn.close();
             System.out.println("updated row");
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             response.setContentType("text/plain");
             response.getWriter().write("error");
             return;
         }
-
         response.setContentType("text/plain");
-        response.getWriter().write("success");
+        if(rowsChanged == 0){
+            response.getWriter().write("error");
+        } else {
+            response.getWriter().write("success");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
