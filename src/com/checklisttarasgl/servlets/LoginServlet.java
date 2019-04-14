@@ -48,8 +48,8 @@ public class LoginServlet extends HttpServlet {
         if (psw.equals(password)/*&& userId != -1*/) {
             HttpSession session = request.getSession();
             session.setAttribute("userID", userId);
-            //setting session to expiry in 1 mins
-            session.setMaxInactiveInterval(1 * 60);
+            //setting session to expiry in 12 hours
+            session.setMaxInactiveInterval(12 * 60 * 60);
 
             response.sendRedirect("home");
         } else {

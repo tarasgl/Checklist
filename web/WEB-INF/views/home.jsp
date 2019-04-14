@@ -15,6 +15,8 @@
     <script src="script/changeIsDone.js"></script>
     <script src="script/deleteEvent.js"></script>
     <script src="script/editEvent.js"></script>
+    <script src="script/sortEvents.js"></script>
+
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -37,7 +39,15 @@
 
 </form>
 <button id="submitButton">надіслати</button>
-
+<div class="select-sort-by">
+    <h3>Sort by</h3>
+    <select name="sort-by" id="select-sort-by">
+        <option value="id" selected>Id</option>
+        <option value="name">Name</option>
+        <option value="idDescending">Id in descending</option>
+        <option value="nameDescending">Name descending</option>
+    </select>
+</div>
 <div class="all-events-container" id="all-events-container">
     <jsp:include page="events.jsp"/>
 

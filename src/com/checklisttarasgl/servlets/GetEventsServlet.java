@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 @WebServlet(name = "GetEventsServlet")
 public class GetEventsServlet extends HttpServlet {
@@ -26,7 +28,26 @@ public class GetEventsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         int userId = (int) session.getAttribute("userID");
-
+        String sortBy = request.getParameter("sortBy");
+        Comparator<Event> eventComparator;
+        //setting comparator for sorting
+        switch (sortBy){
+            case "id":
+                eventComparator = Event.getIdComparator();
+                break;
+            case "idDescending":
+                eventComparator = Event.getIdDescendingComparator();
+                break;
+            case "name":
+                eventComparator = Event.getNameComparator();
+                break;
+            case "nameDescending":
+                eventComparator = Event.getNameDescendingComparator();
+                break;
+            default:
+                eventComparator = Event.getIdComparator();
+                break;
+        }
         try {
             Connection conn = DBConnection.getConnection();
             String sqlQuery = "SELECT [Checklist].[dbo].[Event].[id] AS id,[Checklist].[dbo].[Event].[Name] AS name, " +
@@ -48,6 +69,8 @@ public class GetEventsServlet extends HttpServlet {
                 System.out.println(ev_name + ev_text);
                 events.add(new Event(ev_id, ev_name, ev_text, ev_isDone));
             }
+
+            Collections.sort(events, eventComparator);//sort
             request.setAttribute("events", events);
 
             preparedStatement.close();
@@ -57,7 +80,6 @@ public class GetEventsServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        System.out.println("gettingEvents");
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/events.jsp");
         rd.forward(request, response);
     }

@@ -7,6 +7,7 @@ function addEvent() {
 
         var name = $("#newEventName").val();
         var description = $("#newEventDescription").val();
+        var selectedOption = $('#select-sort-by option:selected').val();
         $.ajax({
             url: "addEvent",
             type: "POST",
@@ -16,15 +17,17 @@ function addEvent() {
             },
             success: function (responseText) {
                 if (responseText.valueOf() === "success") {
-
+                    //reload all events
                     $.ajax({
                         url: "getEvents",
                         type: "GET",
-                        data: {},
+                        data: {
+                            sortBy: selectedOption
+                        },
                         success: function (responseText) {
 
                             $('.all-events-container').html(responseText);
-                            reloadButtonEvents();
+                            reloadButtonEvents();// add jquery event handlers to reloaded elements
                         }
                     })
                 }
